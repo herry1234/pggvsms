@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic/js/angular/angular-resource.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/lb-services.js"></script>
+    <script src="js/app.js"></script>
+
+  </head>
+  <body ng-app="app">
+
+    <ion-pane ng-controller="SmsController">
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Google Voice SMS Example</h1>
+      </ion-header-bar>
+      <ion-content>
+
+      <!-- <div class="container" ng-controller="SmsController" ng-cloak> -->
+
+          <!-- first time greeting message -->
+          <p ng-hide="smses.length">You don't have any SMS. Add one now:</p>
+
+          <!-- list of smses -->
+          <ul class="list" id="smses">
+              <li class="item" ng-repeat="sms in smses">
+
+                  <div class="item-button-right">
+                      {{sms.from}} says:
+                      <button class="button button-positive" ng-click="replySms(sms)">Reply</button>
+                  </div>
+                  <div class="item-text-wrap">
+                      {{sms.body}}
+                  </div>
+
+                <!-- </div> -->
+                  <!-- <button class="button button-positive" ng-click="deleteSms(sms)">(x)</button> -->
+
+              </li>
+          </ul>
+
+              <label class="item item-input">
+                <input placeholder="1234" type="tel" ng-model="newSms.send_to" name="send_to" required />
+              </label>
+
+              <!-- <input ng-model="newSms.send_to" name="send_to" type="text" required /> -->
+            <label class="item item-input">
+              <textarea placeholder="Text" ng-model="newSms.send_text" ng-maxlength="140" required>
+              </textarea>
+            </label>
+
+            <button class="button-block button-positive" ng-click="sendSms(newSms)" ng-disabled="AddSmsForm.SmsTitle.$invalid">
+              Sending SMS
+            </button>
+
+      <!-- </div> -->
+
+      </ion-content>
+      <ion-footer-bar class="bar-stable">
+        <h1 class="title">By Herry Wang</h1>
+      </ion-footer-bar>
+    </ion-pane>
+  </body>
+</html>
